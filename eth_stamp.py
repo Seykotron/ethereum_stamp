@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.10
+#version         : 1.11
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -36,7 +36,7 @@ import json
 
 class EthStamper:
 
-    def __init__(self, endpoint=1, public_key=None, keyfile_path=None, password=None ):
+    def __init__(self, endpoint=1, public_key=None, keyfile_path=None, password=None, origin=None ):
         """
             Endpoint:
                 1 - Ethereum Mainnet
@@ -45,9 +45,53 @@ class EthStamper:
 
         # Check the selected endpoint, if its not in the allowed list raise an exception
         if endpoint == 1:
-            from web3.auto.infura import w3
+            if origin is None:
+                from web3.auto.infura import w3
+            # If origin is set I add it to headers
+            else:
+                from web3 import Web3
+                from web3.providers.auto import (
+                    load_provider_from_uri,
+                )
+
+                from .endpoints import (
+                    INFURA_MAINNET_DOMAIN,
+                    build_http_headers,
+                    build_infura_url,
+                )
+
+                _headers = build_http_headers()
+                _infura_url = build_infura_url(INFURA_MAINNET_DOMAIN)
+
+                _headers["Origin"] = origin
+
+                w3 = Web3(load_provider_from_uri(_infura_url, _headers))
         elif endpoint == 4:
-            from web3.auto.infura.rinkeby import w3
+            if origin is None:
+                from web3.auto.infura.rinkeby import w3
+            # If origin is set I add it to headers
+            else:
+                from web3 import Web3
+                from web3.middleware import (
+                    geth_poa_middleware,
+                )
+                from web3.providers.auto import (
+                    load_provider_from_uri,
+                )
+
+                from .endpoints import (
+                    INFURA_RINKEBY_DOMAIN,
+                    build_http_headers,
+                    build_infura_url,
+                )
+
+                _headers = build_http_headers()
+                _infura_url = build_infura_url(INFURA_RINKEBY_DOMAIN)
+
+                _headers["Origin"] = origin
+
+                w3 = Web3(load_provider_from_uri(_infura_url, _headers))
+                w3.middleware_onion.inject(geth_poa_middleware, layer=0)
         else:
             raise Exception( "Endpoint not allowed." )
 
