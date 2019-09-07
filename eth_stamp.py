@@ -4,8 +4,8 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.01
-#usage           : from eth_stamp import EthStamper
+#version         : 1.02
+#usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
 #                      1 - Register in: https://infura.io
