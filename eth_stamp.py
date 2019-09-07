@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.07
+#version         : 1.08
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -81,7 +81,7 @@ class EthStamper:
         if self.balance == 0:
             raise Exception( "No funds in wallet." )
 
-    def stampMessage( self, to, ammount, gas=100000, data=None  ):
+    def stampMessage( self, to, ammount, data=None, gas=100000   ):
         """
             Stamp a message in the Ethereum blockchain with a transaction
             :parameters:
@@ -104,9 +104,9 @@ class EthStamper:
         # Check if the data is None, a String or a dict and set it up to the tx dictionary
         if data is not None:
             if isinstance( data, dict ):
-                tx["data"] = bytes(json.dumps( data ))
+                tx["data"] = bytes(json.dumps( data ), "utf-8")
             elif isinstance( data, str ):
-                tx["data"] = bytes( data )
+                tx["data"] = bytes( data, "utf-8" )
             else:
                 raise Exception( "Data value not allowed only Strings or Dicts." )
 
