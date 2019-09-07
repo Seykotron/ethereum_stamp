@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.06
+#version         : 1.07
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -75,7 +75,7 @@ class EthStamper:
         self.public_key = public_key
 
         # Store in a variable the ETH available, if 0 raise exception
-        w3.eth.defaultAccount = self.public_key
+        self.w3.eth.defaultAccount = self.public_key
         self.balance = self.w3.eth.getBalance( self.public_key )
 
         if self.balance == 0:
