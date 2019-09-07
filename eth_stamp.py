@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.02
+#version         : 1.03
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -36,7 +36,7 @@ import json
 
 class EthStamper:
 
-    def __init__(self, endpoint=1, public_key=None, file_path=None, password=None ):
+    def __init__(self, endpoint=1, public_key=None, keyfile_path=None, password=None ):
         """
             Endpoint:
                 1 - Ethereum Mainnet
