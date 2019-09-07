@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.03
+#version         : 1.05
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -57,7 +57,7 @@ class EthStamper:
 
         # Open the keyfile and store the private key in the attribute private_key
         if public_key is not None and keyfile_path is not None and password is not None:
-            self.openKeyFile( keyfile_path, password )
+            self.openKeyFile( public_key, keyfile_path, password )
 
 
 
