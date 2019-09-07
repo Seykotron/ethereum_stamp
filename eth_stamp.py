@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.05
+#version         : 1.06
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -51,8 +51,9 @@ class EthStamper:
         else:
             raise Exception( "Endpoint not allowed." )
 
+        self.w3 = w3
         # Check if we are connected to the net
-        if not w3.isConnected():
+        if not self.w3.isConnected():
             raise Exception( "Not connected to the net. Check your API SECRET and PROJECT ID" )
 
         # Open the keyfile and store the private key in the attribute private_key
@@ -68,14 +69,14 @@ class EthStamper:
         """
         with open( keyfile_path ) as keyfile:
             encrypted_key = keyfile.read()
-            self.private_key = w3.eth.account.decrypt( encrypted_key, password )
+            self.private_key = self.w3.eth.account.decrypt( encrypted_key, password )
 
         # Set the public key
         self.public_key = public_key
 
         # Store in a variable the ETH available, if 0 raise exception
         w3.eth.defaultAccount = self.public_key
-        self.balance = w3.eth.getBalance( self.public_key )
+        self.balance = self.w3.eth.getBalance( self.public_key )
 
         if self.balance == 0:
             raise Exception( "No funds in wallet." )
@@ -90,15 +91,15 @@ class EthStamper:
         """
 
         # Checking if the private_key and public_key attributes are setted and also we are connected to the net
-        if not w3.isConnected():
+        if not self.w3.isConnected():
             raise Exception( "Not connected to the net. Check your API SECRET and PROJECT ID" )
         if self.private_key is None or self.public_key is None:
             raise Exception( "You need first to open the key file to setup the private and public key from where the transaction will be made." )
 
         # We get the transaction count of the account
-        self.tx_count = w3.eth.getTransactionCount( self.public_key )
+        self.tx_count = self.w3.eth.getTransactionCount( self.public_key )
 
-        tx = dict( gasPrice=w3.eth.gasPrice, gas=gas, to=to, value=ammount )
+        tx = dict( gasPrice=self.w3.eth.gasPrice, gas=gas, to=to, value=ammount )
 
         # Check if the data is None, a String or a dict and set it up to the tx dictionary
         if data is not None:
@@ -110,6 +111,6 @@ class EthStamper:
                 raise Exception( "Data value not allowed only Strings or Dicts." )
 
         # Signing the transaction
-        signed_tx = w3.eth.account.signTransaction( tx, self.private_key )
+        signed_tx = self.w3.eth.account.signTransaction( tx, self.private_key )
 
-        return w3.eth.sendRawTransaction( signed_tx.rawTransaction )
+        return self.w3.eth.sendRawTransaction( signed_tx.rawTransaction )
