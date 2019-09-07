@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.11
+#version         : 1.12
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -54,7 +54,7 @@ class EthStamper:
                     load_provider_from_uri,
                 )
 
-                from .endpoints import (
+                from web3.auto.infura.endpoints import (
                     INFURA_MAINNET_DOMAIN,
                     build_http_headers,
                     build_infura_url,
@@ -79,7 +79,7 @@ class EthStamper:
                     load_provider_from_uri,
                 )
 
-                from .endpoints import (
+                from web3.auto.infura.endpoints import (
                     INFURA_RINKEBY_DOMAIN,
                     build_http_headers,
                     build_infura_url,
