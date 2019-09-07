@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.0
+#version         : 1.01
 #usage           : from eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -24,10 +24,10 @@
 #                        7.5 - cd ~
 #                        7.5 - Follow the flow that prompts the next command and write your password, WARNING, dont forget the password:
 #                          7.5.1 - geth account new
-#                      8 - Create a folder to store your wallet
+#                      8 - (not required) Create a folder to store your wallet
 #                        8.1 - cd ~
 #                        8.2 - mkdir wallets
-#                      9 - Copy your wallets into the folder ~/wallets:
+#                      9 - (not required) Copy your wallets into the folder ~/wallets:
 #                        9.1 - Replace <username> with your actual username:
 #                          9.1.1 - Example: cp /home/<username>/.ethereum/keystore/* ~/wallets
 #python_version  : >=3.6
