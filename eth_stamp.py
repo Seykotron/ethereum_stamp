@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.08
+#version         : 1.09
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -99,7 +99,7 @@ class EthStamper:
         # We get the transaction count of the account
         self.tx_count = self.w3.eth.getTransactionCount( self.public_key )
 
-        tx = dict( gasPrice=self.w3.eth.gasPrice, gas=gas, to=to, value=ammount )
+        tx = dict( nonce=self.tx_count, gasPrice=self.w3.eth.gasPrice, gas=gas, to=to, value=ammount )
 
         # Check if the data is None, a String or a dict and set it up to the tx dictionary
         if data is not None:
