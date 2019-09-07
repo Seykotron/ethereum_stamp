@@ -57,7 +57,7 @@ class EthStamper:
 
         # Open the keyfile and store the private key in the attribute private_key
         if public_key is not None and keyfile_path is not None and password is not None:
-            openKeyFile( keyfile_path, password )
+            self.openKeyFile( keyfile_path, password )
 
 
 
