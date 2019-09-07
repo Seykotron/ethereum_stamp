@@ -4,7 +4,7 @@
 #description     : Python class to stamp a dict into ethereum blockchain
 #author          : Seykotron
 #date            : 07/09/2019
-#version         : 1.09
+#version         : 1.10
 #usage           : from ethereum_stamp.eth_stamp import EthStamper
 #notes           : Steps before use the class:
 #
@@ -88,6 +88,9 @@ class EthStamper:
                 - to: The public key that will receive the transaction
                 - ammout: the ammout of eth you want to transfer (in wei)
                 - data: The message that will be converted to bytes and stamped in the blockchain it can be a dict or a string
+            :returns:
+                - string with the hash of the transaction
+                - HexBytes Object
         """
 
         # Checking if the private_key and public_key attributes are setted and also we are connected to the net
@@ -113,4 +116,6 @@ class EthStamper:
         # Signing the transaction
         signed_tx = self.w3.eth.account.signTransaction( tx, self.private_key )
 
-        return self.w3.eth.sendRawTransaction( signed_tx.rawTransaction )
+        result = self.w3.eth.sendRawTransaction( signed_tx.rawTransaction )
+
+        return result.hex(), result
